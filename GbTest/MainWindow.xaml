@@ -1,0 +1,213 @@
+﻿<Window x:Class="GbTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GbTest" 
+        xmlns:viewmodel="clr-namespace:GbTest.ViewModel"
+        xmlns:convert="clr-namespace:GbTest.Converter"
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+        mc:Ignorable="d"
+        Title="模拟国标现场机" Height="450" Width="800">
+    <Window.Resources>
+        <convert:StatusConverter x:Key="StatusConverter"/>
+        <convert:InverseConverter x:Key="InverseConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="通讯配置(_C)" Command="{Binding ConnectionConfigCommand}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}"/>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer>
+                    <StackPanel Orientation="Vertical">
+                        <Expander Header="C1">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C2">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C3">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C4">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C5">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C6">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C7">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C8">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C9">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C10">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C11">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C12">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C13">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C14">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C15">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C16">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C17">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C18">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C19">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C20">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C21">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C22">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C23">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C24">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C25">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C26">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C27">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C28">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C29">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C30">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C31">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C32">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C33">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C34">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C35">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C36">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C37">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C38">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C39">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C40">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C41">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C42">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C43">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C44">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C45">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C46">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C47">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C48">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C49">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                        <Expander Header="C50">
+                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        </Expander>
+                    </StackPanel>
+                </ScrollViewer>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="MN:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
+                            <TextBox Width="100" Height="20" Margin="10,5,0,0" Text="{Binding MN}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="PW:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
+                            <TextBox Width="100" Height="20" Margin="10,5,0,0" Text="{Binding PW}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Width="80" Height="30" Margin="10" Content="{Binding IsOpen,Converter={StaticResource StatusConverter}}" Command="{Binding ConnectCommand}" Grid.Column="0"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Text="{Binding Status}"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

@@ -27,7 +27,7 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="400"/>
             </Grid.ColumnDefinitions>
             <TextBox Text="{Binding Content}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
             <Grid Grid.Column="1">
@@ -104,20 +104,69 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C6">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C6 设置实时数据间隔">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C6}"/>
+                                <TextBlock Text="实时数据间隔(秒):" Margin="5"/>
+                                <TextBox Text="{Binding RtdInterval}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1062;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;RtdInterval=30&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C7">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C7 提取分钟数据间隔">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C7}"/>
+                                <TextBlock Text="分钟数据间隔:" Margin="5"/>
+                                <TextBox Text="{Binding MinInterval}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1063;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C8">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C8 设置分钟数据间隔">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C8}"/>
+                                <TextBlock Text="分钟数据间隔:" Margin="5"/>
+                                <TextBox Text="{Binding MinInterval}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1064;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;MinInterval=10&amp;&amp;s" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C9">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C9 设置现场机访问密码">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C9}"/>
+                                <TextBlock Text="访问密码:" Margin="5"/>
+                                <TextBox Text="{Binding PW}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1072;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;NewPW=654321&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C10">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C10 取污染物实时数据">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C10}"/>
+                                <CheckBox Content="上传实时数据" Margin="5,0" IsChecked="{Binding Rtd}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=2011;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
                         <Expander Header="C11">
                             <Grid Background="#FFE5E5E5" Height="200"/>
@@ -245,21 +294,21 @@
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="MN:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
-                            <TextBox Width="80" Height="20" Margin="10,5,0,0" Text="{Binding MN}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                            <TextBox Width="80" Height="20" Margin="10,5,0,0" Text="{Binding MN}" VerticalContentAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="PW:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
-                            <TextBox Width="80" Height="20" Margin="10,5,0,0" Text="{Binding PW}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                            <TextBox Width="80" Height="20" Margin="10,5,0,0" Text="{Binding PW}" VerticalContentAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="ST:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Width="120" Height="20" Margin="10,5,0,0" ItemsSource="{Binding STs}" SelectedItem="{Binding ST}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                            <ComboBox Width="120" Height="20" Margin="10,5,0,0" ItemsSource="{Binding STs}" SelectedItem="{Binding ST}" VerticalContentAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Ver.:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
-                            <ComboBox Width="120" Height="20" Margin="10,5,0,0" ItemsSource="{Binding Versions}" SelectedItem="{Binding Version}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                            <ComboBox Width="120" Height="20" Margin="10,5,0,0" ItemsSource="{Binding Versions}" SelectedItem="{Binding Version}" VerticalContentAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                     <Button Width="80" Height="30" Margin="10" Content="{Binding IsOpen,Converter={StaticResource StatusConverter}}" Command="{Binding ConnectCommand}" Grid.Column="0"/>

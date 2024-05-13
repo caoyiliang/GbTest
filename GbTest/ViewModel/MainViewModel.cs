@@ -7,6 +7,7 @@ using Config;
 using Config.Model;
 using GbTest.Service;
 using HJ212;
+using HJ212.Model;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Text;
@@ -37,6 +38,8 @@ namespace GbTest.ViewModel
         private HJ212.Version _Version = HJ212.Version.HJT212_2017;
         [ObservableProperty]
         private string? _Content;
+        [ObservableProperty]
+        private bool _Rtd;
 
         private Connection _connection;
         private IGB? _gb;
@@ -138,6 +141,38 @@ namespace GbTest.ViewModel
                 return false;
             }
             return true;
+        }
+
+        partial void OnSTChanged(ST value)
+        {
+            if (_gb != null)
+            {
+                _gb.ST = value;
+            }
+        }
+
+        partial void OnMNChanged(string value)
+        {
+            if (_gb != null)
+            {
+                _gb.MN = value;
+            }
+        }
+
+        partial void OnPWChanged(string value)
+        {
+            if (_gb != null)
+            {
+                _gb.PW = value;
+            }
+        }
+
+        partial void OnVersionChanged(HJ212.Version value)
+        {
+            if (_gb != null)
+            {
+                _gb.Version = value;
+            }
         }
 
         #region C1
@@ -251,6 +286,117 @@ namespace GbTest.ViewModel
         private async Task<int> MainViewModel_OnGetRealTimeDataInterval(HJ212.Model.RspInfo objects)
         {
             return await Task.FromResult(RtdInterval);
+        }
+        #endregion
+
+        #region C6
+        [ObservableProperty]
+        private bool _C6;
+        partial void OnC6Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnSetRealTimeDataInterval += MainViewModel_OnSetRealTimeDataInterval;
+            }
+            else
+            {
+                _gb!.OnSetRealTimeDataInterval -= MainViewModel_OnSetRealTimeDataInterval;
+            }
+        }
+
+        private async Task MainViewModel_OnSetRealTimeDataInterval((int RtdInterval, RspInfo RspInfo) objects)
+        {
+            RtdInterval = objects.RtdInterval;
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C7
+        [ObservableProperty]
+        private bool _C7;
+        [ObservableProperty]
+        private int _MinInterval = 10;
+        partial void OnC7Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetMinuteDataInterval += MainViewModel_OnGetMinuteDataInterval;
+            }
+            else
+            {
+                _gb!.OnGetMinuteDataInterval -= MainViewModel_OnGetMinuteDataInterval;
+            }
+        }
+
+        private async Task<int> MainViewModel_OnGetMinuteDataInterval(RspInfo objects)
+        {
+            return await Task.FromResult(MinInterval);
+        }
+        #endregion
+
+        #region C8
+        [ObservableProperty]
+        private bool _C8;
+        partial void OnC8Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnSetMinuteDataInterval += MainViewModel_OnSetMinuteDataInterval;
+            }
+            else
+            {
+                _gb!.OnSetMinuteDataInterval -= MainViewModel_OnSetMinuteDataInterval;
+            }
+        }
+
+        private async Task MainViewModel_OnSetMinuteDataInterval((int MinInterval, RspInfo RspInfo) objects)
+        {
+            MinInterval = objects.MinInterval;
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C9
+        [ObservableProperty]
+        private bool _C9;
+        partial void OnC9Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnSetNewPW += MainViewModel_OnSetNewPW;
+            }
+            else
+            {
+                _gb!.OnSetNewPW -= MainViewModel_OnSetNewPW;
+            }
+        }
+
+        private async Task MainViewModel_OnSetNewPW((string NewPW, RspInfo RspInfo) objects)
+        {
+            PW = objects.NewPW;
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C10
+        [ObservableProperty]
+        private bool _C10;
+        partial void OnC10Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnStartRealTimeData += MainViewModel_OnStartRealTimeData;
+            }
+            else
+            {
+                _gb!.OnStartRealTimeData -= MainViewModel_OnStartRealTimeData;
+            }
+        }
+
+        private async Task MainViewModel_OnStartRealTimeData(RspInfo objects)
+        {
+            Rtd = true;
+            await Task.CompletedTask;
         }
         #endregion
     }

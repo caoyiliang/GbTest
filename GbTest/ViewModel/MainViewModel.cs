@@ -9,7 +9,9 @@ using GbTest.Service;
 using HJ212;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
+using System.Text;
 using System.Windows;
+using Utils;
 
 namespace GbTest.ViewModel
 {
@@ -33,6 +35,8 @@ namespace GbTest.ViewModel
         private IEnumerable<HJ212.Version> _Versions;
         [ObservableProperty]
         private HJ212.Version _Version = HJ212.Version.HJT212_2017;
+        [ObservableProperty]
+        private string? _Content;
 
         private Connection _connection;
         private IGB? _gb;
@@ -81,6 +85,8 @@ namespace GbTest.ViewModel
                         break;
                     default: throw new NotSupportedException();
                 }
+                _gb.OnSentData += _gb_OnSentData;
+                _gb.OnReceivedData += _gb_OnReceivedData;
                 _gb.OnConnect += _gb_OnConnect;
                 _gb.OnDisconnect += _gb_OnDisconnect;
                 try
@@ -93,6 +99,18 @@ namespace GbTest.ViewModel
                     //ExceptionStr = "连接失败，检查链路";
                 }
             }
+        }
+
+        private async Task _gb_OnReceivedData(byte[] data)
+        {
+            Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Rec:<-- {Encoding.ASCII.GetString(data)}\r\n";
+            await Task.CompletedTask;
+        }
+
+        private async Task _gb_OnSentData(byte[] data)
+        {
+            Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Sent:<-- {Encoding.ASCII.GetString(data)}";
+            await Task.CompletedTask;
         }
 
         private async Task _gb_OnDisconnect()
@@ -174,7 +192,7 @@ namespace GbTest.ViewModel
         [ObservableProperty]
         private bool _C3;
         [ObservableProperty]
-        private string _SystemTime;
+        private string? _SystemTime;
         partial void OnC3Changed(bool value)
         {
             if (value)

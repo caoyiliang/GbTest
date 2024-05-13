@@ -29,9 +29,7 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Grid>
-
-            </Grid>
+            <TextBox Text="{Binding Content}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>

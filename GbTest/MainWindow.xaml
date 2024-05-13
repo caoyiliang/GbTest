@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:GbTest" 
         xmlns:viewmodel="clr-namespace:GbTest.ViewModel"
         xmlns:convert="clr-namespace:GbTest.Converter"
+        xmlns:b="clr-namespace:GbTest.Behavior"
         d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         Title="模拟国标现场机" Height="450" Width="800">
@@ -35,22 +37,74 @@
                     <RowDefinition/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
-                <ScrollViewer>
+                <ScrollViewer IsEnabled="{Binding IsOpen}">
                     <StackPanel Orientation="Vertical">
-                        <Expander Header="C1">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C1 设置超时时间及重发次数">
+                            <StackPanel Background="#FFE5E5E5" Height="200">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C1}"/>
+                                <TextBlock Text="超时时间(秒):" Margin="5"/>
+                                <TextBox Text="{Binding OverTime}" Margin="5,0"/>
+                                <TextBlock Text="重发次数:" Margin="5"/>
+                                <TextBox Text="{Binding ReCount}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1000;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;OverTime=5;ReCount=3&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C2">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C2 提取现场机时间">
+                            <StackPanel Background="#FFE5E5E5" Height="120">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C2}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1011;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C3">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C3 设置现场机时间">
+                            <StackPanel Background="#FFE5E5E5" Height="180">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C3}"/>
+                                <TextBlock Text="收到时间:" Margin="5"/>
+                                <TextBox Text="{Binding SystemTime}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1012;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018;SystemTime=20160801085857&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C4">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C4 现场机时间校准请求">
+                            <StackPanel Background="#FFE5E5E5" Height="200">
+                                <TextBlock Text="仪表对应污染物编码 :" Margin="5"/>
+                                <TextBox Text="{Binding PolId_C4}" Margin="5,0"/>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C4}" Margin="5,0"/>
+                                <Button Content="发送" Margin="5" Command="{Binding C4TestCommand}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=91;CN=9013;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C5">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C5 提取实时数据间隔">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C5}"/>
+                                <TextBlock Text="实时数据间隔(秒):" Margin="5"/>
+                                <TextBox Text="{Binding RtdInterval}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=1061;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
                         <Expander Header="C6">
                             <Grid Background="#FFE5E5E5" Height="200"/>
@@ -193,11 +247,21 @@
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="MN:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
-                            <TextBox Width="100" Height="20" Margin="10,5,0,0" Text="{Binding MN}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                            <TextBox Width="80" Height="20" Margin="10,5,0,0" Text="{Binding MN}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="PW:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
-                            <TextBox Width="100" Height="20" Margin="10,5,0,0" Text="{Binding PW}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                            <TextBox Width="80" Height="20" Margin="10,5,0,0" Text="{Binding PW}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="ST:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
+                            <ComboBox Width="120" Height="20" Margin="10,5,0,0" ItemsSource="{Binding STs}" SelectedItem="{Binding ST}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Ver.:" Width="28" Margin="10,5,0,0" VerticalAlignment="Center"/>
+                            <ComboBox Width="120" Height="20" Margin="10,5,0,0" ItemsSource="{Binding Versions}" SelectedItem="{Binding Version}" IsEnabled="{Binding IsOpen,Converter={StaticResource InverseConverter}}" VerticalContentAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                     <Button Width="80" Height="30" Margin="10" Content="{Binding IsOpen,Converter={StaticResource StatusConverter}}" Command="{Binding ConnectCommand}" Grid.Column="0"/>

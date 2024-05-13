@@ -168,19 +168,68 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C11">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C11 停止察看污染物实时数据">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C11}"/>
+                                <CheckBox Content="上传实时数据" Margin="5,0" IsChecked="{Binding Rtd}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=2012;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C12">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C12 取设备运行状态数据">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C12}"/>
+                                <CheckBox Content="上传设备运行状态" Margin="5,0" IsChecked="{Binding RunningState}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=2021;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C13">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C13 停止察看设备运行状态">
+                            <StackPanel Background="#FFE5E5E5" Height="150">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C13}"/>
+                                <CheckBox Content="上传设备运行状态" Margin="5,0" IsChecked="{Binding RunningState}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=2022;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C14">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C14 上传污染物实时数据">
+                            <StackPanel Background="#FFE5E5E5" Height="440">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding RealTimeDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="污染物名称" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Rtd" Binding="{Binding Rtd}" Width="*"/>
+                                        <DataGridTextColumn Header="Flag" Binding="{Binding Flag}" Width="Auto"/>
+                                        <DataGridTextColumn Header="SampleTime" Binding="{Binding SampleTime}" Width="*"/>
+                                        <DataGridTextColumn Header="EFlag" Binding="{Binding EFlag}" Width="Auto"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C14}" Margin="5,0"/>
+                                <Button Content="单次发送" Margin="5" Command="{Binding C14TestCommand}"/>
+                                <TextBlock Text="波动百分比(%) :" Margin="5"/>
+                                <TextBox Text="{Binding Fluctuation_C14}" Margin="5,0"/>
+                                <CheckBox Content="启用自动发送" Margin="5" IsChecked="{Binding C14}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=91;CN=9014;PW=123456;MN=010000A8900016F" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C15">
+                        <Expander Header="C15 上传设备运行状态数据">
                             <Grid Background="#FFE5E5E5" Height="200"/>
                         </Expander>
                         <Expander Header="C16">

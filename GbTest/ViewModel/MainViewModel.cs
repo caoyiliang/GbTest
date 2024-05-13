@@ -9,10 +9,9 @@ using GbTest.Service;
 using HJ212;
 using HJ212.Model;
 using Microsoft.Extensions.DependencyInjection;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
-using Utils;
 
 namespace GbTest.ViewModel
 {
@@ -25,6 +24,9 @@ namespace GbTest.ViewModel
         [ObservableProperty]
         private bool _isOpen;
         [ObservableProperty]
+        private string? _Content;
+
+        [ObservableProperty]
         private string _MN = "88888888";
         [ObservableProperty]
         private string _PW = "123456";
@@ -36,10 +38,21 @@ namespace GbTest.ViewModel
         private IEnumerable<HJ212.Version> _Versions;
         [ObservableProperty]
         private HJ212.Version _Version = HJ212.Version.HJT212_2017;
+
         [ObservableProperty]
-        private string? _Content;
+        private int? _OverTime = null;
+        [ObservableProperty]
+        private int? _ReCount = null;
+        [ObservableProperty]
+        private int _RtdInterval = 30;
+        [ObservableProperty]
+        private int _MinInterval = 10;
         [ObservableProperty]
         private bool _Rtd;
+        [ObservableProperty]
+        private bool _RunningState;
+        [ObservableProperty]
+        private ObservableCollection<Model.RealTimeData> _RealTimeDatas = [];
 
         private Connection _connection;
         private IGB? _gb;
@@ -178,10 +191,6 @@ namespace GbTest.ViewModel
         #region C1
         [ObservableProperty]
         private bool _C1;
-        [ObservableProperty]
-        private int? _OverTime = null;
-        [ObservableProperty]
-        private int? _ReCount = null;
         partial void OnC1Changed(bool value)
         {
             if (value)
@@ -269,8 +278,6 @@ namespace GbTest.ViewModel
         #region C5
         [ObservableProperty]
         private bool _C5;
-        [ObservableProperty]
-        private int _RtdInterval = 30;
         partial void OnC5Changed(bool value)
         {
             if (value)
@@ -314,8 +321,6 @@ namespace GbTest.ViewModel
         #region C7
         [ObservableProperty]
         private bool _C7;
-        [ObservableProperty]
-        private int _MinInterval = 10;
         partial void OnC7Changed(bool value)
         {
             if (value)
@@ -397,6 +402,123 @@ namespace GbTest.ViewModel
         {
             Rtd = true;
             await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C11
+        [ObservableProperty]
+        private bool _C11;
+        partial void OnC11Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnStopRealTimeData += MainViewModel_OnStopRealTimeData;
+            }
+            else
+            {
+                _gb!.OnStopRealTimeData -= MainViewModel_OnStopRealTimeData;
+            }
+        }
+
+        private async Task MainViewModel_OnStopRealTimeData(RspInfo objects)
+        {
+            Rtd = false;
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C12
+        [ObservableProperty]
+        private bool _C12;
+        partial void OnC12Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnStartRunningStateData += MainViewModel_OnStartRunningStateData;
+            }
+            else
+            {
+                _gb!.OnStartRunningStateData -= MainViewModel_OnStartRunningStateData;
+            }
+        }
+
+        private async Task MainViewModel_OnStartRunningStateData(RspInfo objects)
+        {
+            RunningState = true;
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C13
+        [ObservableProperty]
+        private bool _C13;
+        partial void OnC13Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnStopRunningStateData += MainViewModel_OnStopRunningStateData;
+            }
+            else
+            {
+                _gb!.OnStopRunningStateData -= MainViewModel_OnStopRunningStateData;
+            }
+        }
+
+        private async Task MainViewModel_OnStopRunningStateData(RspInfo objects)
+        {
+            RunningState = false;
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C14
+        [ObservableProperty]
+        private int _TimeOut_C14 = 120000;
+        [RelayCommand]
+        private async Task C14TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadRealTimeData(DateTime.Now, RealTimeDatas.Select(_ => new RealTimeData(_.Name!) { Rtd = _.Rtd.ToString(), Flag = _.Flag, SampleTime = _.SampleTime, EFlag = _.EFlag }).ToList(), TimeOut_C14);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        [ObservableProperty]
+        private bool _C14;
+        [ObservableProperty]
+        private float _Fluctuation_C14 = 1f;
+        private Task? _task_C14;
+        private CancellationTokenSource _token_C14;
+        partial void OnC14Changed(bool value)
+        {
+            if (value)
+            {
+                _token_C14 = new CancellationTokenSource();
+                _task_C14 = Task.Run(async () =>
+                {
+                    while (!_token_C14.IsCancellationRequested)
+                    {
+                        Random random = new Random();
+                        double randomPercentage = random.NextDouble() * 2 * Fluctuation_C14 - Fluctuation_C14;
+                        try
+                        {
+                            await _gb!.UploadRealTimeData(DateTime.Now, RealTimeDatas.Select(_ => new RealTimeData(_.Name!) { Rtd = (_.Rtd * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag, SampleTime = _.SampleTime, EFlag = _.EFlag }).ToList(), TimeOut_C14);
+                        }
+                        catch (TimeoutException)
+                        {
+                            //MessageBox.Show("请求超时");
+                        }
+                        await Task.Delay(RtdInterval * 1000, _token_C14.Token);
+                    }
+                }, _token_C14.Token);
+            }
+            else
+            {
+                _token_C14.Cancel();
+            }
         }
         #endregion
     }

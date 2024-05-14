@@ -725,7 +725,7 @@ namespace GbTest.ViewModel
         [ObservableProperty]
         private int _Count_C20 = 2;
         [ObservableProperty]
-        private bool _ReturnValue;
+        private bool _ReturnValue_C20;
 
         partial void OnC20Changed(bool value)
         {
@@ -748,7 +748,150 @@ namespace GbTest.ViewModel
                 double randomPercentage = random.NextDouble() * 2 * Fluctuation_C16 - Fluctuation_C16;
                 historyDatas.Add(new HistoryData(objects.BeginTime.AddMinutes(i), MinuteDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? ((float)_.Cou * (1 + randomPercentage / 100)).ToString("0.00") : null, Min = (_.Min * (1 + randomPercentage / 100)).ToString("0.00"), Avg = (_.Avg * (1 + randomPercentage / 100)).ToString("0.00"), Max = (_.Max * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag }).ToList()));
             }
-            return await Task.FromResult((historyDatas, ReturnValue, TimeOut_C16));
+            return await Task.FromResult((historyDatas, ReturnValue_C20, TimeOut_C16));
+        }
+        #endregion
+
+        #region C21
+        [ObservableProperty]
+        private bool _C21;
+        [ObservableProperty]
+        private int _Count_C21 = 2;
+        [ObservableProperty]
+        private bool _ReturnValue_C21;
+
+        partial void OnC21Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetHourData += MainViewModel_OnGetHourData;
+            }
+            else
+            {
+                _gb!.OnGetHourData -= MainViewModel_OnGetHourData;
+            }
+        }
+
+        private async Task<(List<HistoryData> HistoryDatas, bool ReturnValue, int? Timeout)> MainViewModel_OnGetHourData((DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
+        {
+            var historyDatas = new List<HistoryData>();
+            var random = new Random();
+            for (int i = 0; i < Count_C21; i++)
+            {
+                double randomPercentage = random.NextDouble() * 2 * Fluctuation_C17 - Fluctuation_C17;
+                historyDatas.Add(new HistoryData(objects.BeginTime.AddHours(i), HourDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? ((float)_.Cou * (1 + randomPercentage / 100)).ToString("0.00") : null, Min = (_.Min * (1 + randomPercentage / 100)).ToString("0.00"), Avg = (_.Avg * (1 + randomPercentage / 100)).ToString("0.00"), Max = (_.Max * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag }).ToList()));
+            }
+            return await Task.FromResult((historyDatas, ReturnValue_C21, TimeOut_C17));
+        }
+        #endregion
+
+        #region C22
+        [ObservableProperty]
+        private bool _C22;
+        [ObservableProperty]
+        private int _Count_C22 = 2;
+        [ObservableProperty]
+        private bool _ReturnValue_C22;
+        partial void OnC22Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetDayData += MainViewModel_OnGetDayData;
+            }
+            else
+            {
+                _gb!.OnGetDayData -= MainViewModel_OnGetDayData;
+            }
+        }
+
+        private async Task<(List<HistoryData> HistoryDatas, bool ReturnValue, int? Timeout)> MainViewModel_OnGetDayData((DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
+        {
+            var historyDatas = new List<HistoryData>();
+            var random = new Random();
+            for (int i = 0; i < Count_C22; i++)
+            {
+                double randomPercentage = random.NextDouble() * 2 * Fluctuation_C18 - Fluctuation_C18;
+                historyDatas.Add(new HistoryData(objects.BeginTime.AddDays(i), DayDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? ((float)_.Cou * (1 + randomPercentage / 100)).ToString("0.00") : null, Min = (_.Min * (1 + randomPercentage / 100)).ToString("0.00"), Avg = (_.Avg * (1 + randomPercentage / 100)).ToString("0.00"), Max = (_.Max * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag }).ToList()));
+            }
+            return await Task.FromResult((historyDatas, ReturnValue_C22, TimeOut_C18));
+        }
+        #endregion
+
+        #region C23
+        [ObservableProperty]
+        private bool _C23;
+        partial void OnC23Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetRunningTimeData += MainViewModel_OnGetRunningTimeData;
+            }
+            else
+            {
+                _gb!.OnGetRunningTimeData -= MainViewModel_OnGetRunningTimeData;
+            }
+        }
+
+        private async Task<(DateTime DataTime, List<RunningTimeData> Data)> MainViewModel_OnGetRunningTimeData((DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
+        {
+            return await Task.FromResult((DateTime.Now, RunningTimeDatas.Select(_ => new RunningTimeData(_.Name, _.RT)).ToList()));
+        }
+        #endregion
+
+        #region C24
+        [ObservableProperty]
+        private string _DataTime_C24 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private string _RestartTime_C24 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private int _TimeOut_C24 = 120000;
+        [RelayCommand]
+        private async Task C24TestAsync()
+        {
+            if (!DateTime.TryParseExact(DataTime_C24, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                return;
+            }
+            if (!DateTime.TryParseExact(RestartTime_C24, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var restartTime))
+            {
+                MessageBox.Show($"RestartTime Error");
+                return;
+            }
+            try
+            {
+                await _gb!.UploadAcquisitionDeviceRestartTime(dataTime, restartTime, TimeOut_C24);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C25
+        [ObservableProperty]
+        private string _DataTime_C25 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private float _LARtd;
+        [ObservableProperty]
+        private int _TimeOut_C25 = 120000;
+        [RelayCommand]
+        private async Task C25TestAsync()
+        {
+            if (!DateTime.TryParseExact(DataTime_C25, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                return;
+            }
+            try
+            {
+                await _gb!.UploadRealTimeNoiseLevel(dataTime, LARtd, TimeOut_C25);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
         }
         #endregion
     }

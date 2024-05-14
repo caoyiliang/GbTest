@@ -53,6 +53,16 @@ namespace GbTest.ViewModel
         private bool _RunningState;
         [ObservableProperty]
         private ObservableCollection<Model.RealTimeData> _RealTimeDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.RunningStateData> _RunningStateDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.StatisticsData> _MinuteDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.StatisticsData> _HourDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.StatisticsData> _DayDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.RunningTimeData> _RunningTimeDatas = [];
 
         private Connection _connection;
         private IGB? _gb;
@@ -491,7 +501,7 @@ namespace GbTest.ViewModel
         [ObservableProperty]
         private float _Fluctuation_C14 = 1f;
         private Task? _task_C14;
-        private CancellationTokenSource _token_C14;
+        private CancellationTokenSource? _token_C14;
         partial void OnC14Changed(bool value)
         {
             if (value)
@@ -517,8 +527,228 @@ namespace GbTest.ViewModel
             }
             else
             {
-                _token_C14.Cancel();
+                _token_C14?.Cancel();
             }
+        }
+        #endregion
+
+        #region C15
+        [ObservableProperty]
+        private int _TimeOut_C15 = 120000;
+        [RelayCommand]
+        private async Task C15TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadRunningStateData(DateTime.Now, RunningStateDatas.Select(_ => new RunningStateData(_.Name, _.RS)).ToList(), TimeOut_C15);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C16
+        [ObservableProperty]
+        private int _TimeOut_C16 = 120000;
+        [RelayCommand]
+        private async Task C16TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadMinuteData(DateTime.Now, MinuteDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? _.Cou.ToString() : null, Min = _.Min.ToString(), Avg = _.Avg.ToString(), Max = _.Max.ToString(), Flag = _.Flag }).ToList(), TimeOut_C16);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        [ObservableProperty]
+        private bool _C16;
+        [ObservableProperty]
+        private float _Fluctuation_C16 = 1f;
+        private Task? _task_C16;
+        private CancellationTokenSource? _token_C16;
+        partial void OnC16Changed(bool value)
+        {
+            if (value)
+            {
+                _token_C16 = new CancellationTokenSource();
+                _task_C16 = Task.Run(async () =>
+                {
+                    var random = new Random();
+                    while (!_token_C16.IsCancellationRequested)
+                    {
+                        double randomPercentage = random.NextDouble() * 2 * Fluctuation_C16 - Fluctuation_C16;
+                        try
+                        {
+                            await _gb!.UploadMinuteData(DateTime.Now, MinuteDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? ((float)_.Cou * (1 + randomPercentage / 100)).ToString("0.00") : null, Min = (_.Min * (1 + randomPercentage / 100)).ToString("0.00"), Avg = (_.Avg * (1 + randomPercentage / 100)).ToString("0.00"), Max = (_.Max * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag }).ToList(), TimeOut_C16);
+                        }
+                        catch (TimeoutException)
+                        {
+                            //MessageBox.Show("请求超时");
+                        }
+                        await Task.Delay(MinInterval * 60 * 1000, _token_C16.Token);
+                    }
+                }, _token_C16.Token);
+            }
+            else
+            {
+                _token_C16?.Cancel();
+            }
+        }
+        #endregion
+
+        #region C17
+        [ObservableProperty]
+        private int _TimeOut_C17 = 120000;
+        [RelayCommand]
+        private async Task C17TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadHourData(DateTime.Now, HourDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? _.Cou.ToString() : null, Min = _.Min.ToString(), Avg = _.Avg.ToString(), Max = _.Max.ToString(), Flag = _.Flag }).ToList(), TimeOut_C17);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        [ObservableProperty]
+        private bool _C17;
+        [ObservableProperty]
+        private float _Fluctuation_C17 = 1f;
+        private Task? _task_C17;
+        private CancellationTokenSource? _token_C17;
+        partial void OnC17Changed(bool value)
+        {
+            if (value)
+            {
+                _token_C17 = new CancellationTokenSource();
+                _task_C17 = Task.Run(async () =>
+                {
+                    var random = new Random();
+                    while (!_token_C17.IsCancellationRequested)
+                    {
+                        double randomPercentage = random.NextDouble() * 2 * Fluctuation_C17 - Fluctuation_C17;
+                        try
+                        {
+                            await _gb!.UploadHourData(DateTime.Now, HourDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? ((float)_.Cou * (1 + randomPercentage / 100)).ToString("0.00") : null, Min = (_.Min * (1 + randomPercentage / 100)).ToString("0.00"), Avg = (_.Avg * (1 + randomPercentage / 100)).ToString("0.00"), Max = (_.Max * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag }).ToList(), TimeOut_C17);
+                        }
+                        catch (TimeoutException)
+                        {
+                            //MessageBox.Show("请求超时");
+                        }
+                        await Task.Delay(60 * 60 * 1000, _token_C17.Token);
+                    }
+                }, _token_C17.Token);
+            }
+            else
+            {
+                _token_C17?.Cancel();
+            }
+        }
+        #endregion
+
+        #region C18
+        [ObservableProperty]
+        private int _TimeOut_C18 = 120000;
+        [RelayCommand]
+        private async Task C18TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadDayData(DateTime.Now, DayDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? _.Cou.ToString() : null, Min = _.Min.ToString(), Avg = _.Avg.ToString(), Max = _.Max.ToString(), Flag = _.Flag }).ToList(), TimeOut_C18);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        [ObservableProperty]
+        private bool _C18;
+        [ObservableProperty]
+        private float _Fluctuation_C18 = 1f;
+        private Task? _task_C18;
+        private CancellationTokenSource? _token_C18;
+        partial void OnC18Changed(bool value)
+        {
+            if (value)
+            {
+                _token_C18 = new CancellationTokenSource();
+                _task_C18 = Task.Run(async () =>
+                {
+                    var random = new Random();
+                    while (!_token_C18.IsCancellationRequested)
+                    {
+                        double randomPercentage = random.NextDouble() * 2 * Fluctuation_C18 - Fluctuation_C18;
+                        try
+                        {
+                            await _gb!.UploadDayData(DateTime.Now, DayDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? ((float)_.Cou * (1 + randomPercentage / 100)).ToString("0.00") : null, Min = (_.Min * (1 + randomPercentage / 100)).ToString("0.00"), Avg = (_.Avg * (1 + randomPercentage / 100)).ToString("0.00"), Max = (_.Max * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag }).ToList(), TimeOut_C18);
+                        }
+                        catch (TimeoutException)
+                        {
+                            //MessageBox.Show("请求超时");
+                        }
+                        await Task.Delay(24 * 60 * 60 * 1000, _token_C18.Token);
+                    }
+                }, _token_C18.Token);
+            }
+            else
+            {
+                _token_C18?.Cancel();
+            }
+        }
+        #endregion
+
+        #region C19
+        [ObservableProperty]
+        private int _TimeOut_C19 = 120000;
+        [RelayCommand]
+        private async Task C19TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadRunningTimeData(DateTime.Now, RunningTimeDatas.Select(_ => new RunningTimeData(_.Name, _.RT)).ToList(), TimeOut_C19);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C20
+        [ObservableProperty]
+        private bool _C20;
+        [ObservableProperty]
+        private int _Count_C20 = 2;
+        [ObservableProperty]
+        private bool _ReturnValue;
+
+        partial void OnC20Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetMinuteData += MainViewModel_OnGetMinuteData;
+            }
+            else
+            {
+                _gb!.OnGetMinuteData -= MainViewModel_OnGetMinuteData;
+            }
+        }
+
+        private async Task<(List<HistoryData> HistoryDatas, bool ReturnValue, int? Timeout)> MainViewModel_OnGetMinuteData((DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
+        {
+            var historyDatas = new List<HistoryData>();
+            var random = new Random();
+            for (int i = 0; i < Count_C20; i++)
+            {
+                double randomPercentage = random.NextDouble() * 2 * Fluctuation_C16 - Fluctuation_C16;
+                historyDatas.Add(new HistoryData(objects.BeginTime.AddMinutes(i), MinuteDatas.Select(_ => new StatisticsData(_.Name) { Cou = _.Cou.HasValue ? ((float)_.Cou * (1 + randomPercentage / 100)).ToString("0.00") : null, Min = (_.Min * (1 + randomPercentage / 100)).ToString("0.00"), Avg = (_.Avg * (1 + randomPercentage / 100)).ToString("0.00"), Max = (_.Max * (1 + randomPercentage / 100)).ToString("0.00"), Flag = _.Flag }).ToList()));
+            }
+            return await Task.FromResult((historyDatas, ReturnValue, TimeOut_C16));
         }
         #endregion
     }

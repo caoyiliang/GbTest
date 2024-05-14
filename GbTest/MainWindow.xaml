@@ -230,22 +230,145 @@
                             </StackPanel>
                         </Expander>
                         <Expander Header="C15 上传设备运行状态数据">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                            <StackPanel Background="#FFE5E5E5" Height="400">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding RunningStateDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="污染治理设施名称" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="RunningState" Binding="{Binding RS}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C15}" Margin="5,0"/>
+                                <Button Content="发送" Margin="5" Command="{Binding C15TestCommand}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20240429114224393;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C16">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C16 上传污染物分钟数据">
+                            <StackPanel Background="#FFE5E5E5" Height="440">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding MinuteDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="污染物名称" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Cou" Binding="{Binding Cou}" Width="*"/>
+                                        <DataGridTextColumn Header="Min" Binding="{Binding Min}" Width="*"/>
+                                        <DataGridTextColumn Header="Avg" Binding="{Binding Avg}" Width="*"/>
+                                        <DataGridTextColumn Header="Max" Binding="{Binding Max}" Width="*"/>
+                                        <DataGridTextColumn Header="Flag" Binding="{Binding Flag}" Width="Auto"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C16}" Margin="5,0"/>
+                                <Button Content="单次发送" Margin="5" Command="{Binding C16TestCommand}"/>
+                                <TextBlock Text="波动百分比(%) :" Margin="5"/>
+                                <TextBox Text="{Binding Fluctuation_C16}" Margin="5,0"/>
+                                <CheckBox Content="启用自动发送" Margin="5" IsChecked="{Binding C16}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20240430102725064;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C17">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C17 上传污染物小时数据">
+                            <StackPanel Background="#FFE5E5E5" Height="440">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding HourDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="污染物名称" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Cou" Binding="{Binding Cou}" Width="*"/>
+                                        <DataGridTextColumn Header="Min" Binding="{Binding Min}" Width="*"/>
+                                        <DataGridTextColumn Header="Avg" Binding="{Binding Avg}" Width="*"/>
+                                        <DataGridTextColumn Header="Max" Binding="{Binding Max}" Width="*"/>
+                                        <DataGridTextColumn Header="Flag" Binding="{Binding Flag}" Width="Auto"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C17}" Margin="5,0"/>
+                                <Button Content="单次发送" Margin="5" Command="{Binding C17TestCommand}"/>
+                                <TextBlock Text="波动百分比(%) :" Margin="5"/>
+                                <TextBox Text="{Binding Fluctuation_C17}" Margin="5,0"/>
+                                <CheckBox Content="启用自动发送" Margin="5" IsChecked="{Binding C17}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20240430102725064;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C18">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C18 上传污染物日历史数据">
+                            <StackPanel Background="#FFE5E5E5" Height="440">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding DayDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="污染物名称" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Cou" Binding="{Binding Cou}" Width="*"/>
+                                        <DataGridTextColumn Header="Min" Binding="{Binding Min}" Width="*"/>
+                                        <DataGridTextColumn Header="Avg" Binding="{Binding Avg}" Width="*"/>
+                                        <DataGridTextColumn Header="Max" Binding="{Binding Max}" Width="*"/>
+                                        <DataGridTextColumn Header="Flag" Binding="{Binding Flag}" Width="Auto"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C18}" Margin="5,0"/>
+                                <Button Content="单次发送" Margin="5" Command="{Binding C18TestCommand}"/>
+                                <TextBlock Text="波动百分比(%) :" Margin="5"/>
+                                <TextBox Text="{Binding Fluctuation_C18}" Margin="5,0"/>
+                                <CheckBox Content="启用自动发送" Margin="5" IsChecked="{Binding C18}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20240430102725064;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C19">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C19 上传设备运行时间日历史数据">
+                            <StackPanel Background="#FFE5E5E5" Height="400">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding RunningTimeDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="污染治理设施名称" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="RunningTime" Binding="{Binding RT}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C19}" Margin="5,0"/>
+                                <Button Content="发送" Margin="5" Command="{Binding C19TestCommand}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20240429114224393;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C20">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C20 取污染物分钟历史数据(遵循C47-C50的规则)">
+                            <StackPanel Background="#FFE5E5E5" Height="500">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C20}"/>
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding MinuteDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="污染物名称" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Cou" Binding="{Binding Cou}" Width="*"/>
+                                        <DataGridTextColumn Header="Min" Binding="{Binding Min}" Width="*"/>
+                                        <DataGridTextColumn Header="Avg" Binding="{Binding Avg}" Width="*"/>
+                                        <DataGridTextColumn Header="Max" Binding="{Binding Max}" Width="*"/>
+                                        <DataGridTextColumn Header="Flag" Binding="{Binding Flag}" Width="Auto"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="波动百分比(%) :" Margin="5"/>
+                                <TextBox Text="{Binding Fluctuation_C16}" Margin="5,0"/>
+                                <TextBlock Text="返回几分钟:" Margin="5"/>
+                                <TextBox Text="{Binding Count_C20}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=2051;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;BeginTime=20160801084000;EndTime=20160801084000&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
                         <Expander Header="C21">
                             <Grid Background="#FFE5E5E5" Height="200"/>
@@ -323,18 +446,6 @@
                             <Grid Background="#FFE5E5E5" Height="200"/>
                         </Expander>
                         <Expander Header="C46">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
-                        </Expander>
-                        <Expander Header="C47">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
-                        </Expander>
-                        <Expander Header="C48">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
-                        </Expander>
-                        <Expander Header="C49">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
-                        </Expander>
-                        <Expander Header="C50">
                             <Grid Background="#FFE5E5E5" Height="200"/>
                         </Expander>
                     </StackPanel>

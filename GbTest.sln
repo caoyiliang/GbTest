@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GbTest", "GbTest\GbTest.csproj", "{02484B07-D1EB-4DC0-8C94-FD493C9F9800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GbTest", "GbTest\GbTest.csproj", "{02484B07-D1EB-4DC0-8C94-FD493C9F9800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "Config\Config.csproj", "{23DA072E-F32B-4443-813B-D9FCD4AC87B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Config", "Config\Config.csproj", "{23DA072E-F32B-4443-813B-D9FCD4AC87B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

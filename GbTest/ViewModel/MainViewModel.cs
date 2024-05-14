@@ -63,6 +63,12 @@ namespace GbTest.ViewModel
         private ObservableCollection<Model.StatisticsData> _DayDatas = [];
         [ObservableProperty]
         private ObservableCollection<Model.RunningTimeData> _RunningTimeDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.NoiseLevelData> _NoiseLevelDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.NoiseLevelData> _HourNoiseLevelDatas = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.NoiseLevelData_Day> _DayNoiseLevelDatas = [];
 
         private Connection _connection;
         private IGB? _gb;
@@ -481,7 +487,7 @@ namespace GbTest.ViewModel
         }
         #endregion
 
-        #region C14
+        #region C14、29
         [ObservableProperty]
         private int _TimeOut_C14 = 120000;
         [RelayCommand]
@@ -892,6 +898,100 @@ namespace GbTest.ViewModel
             {
                 MessageBox.Show("请求超时");
             }
+        }
+        #endregion
+
+        #region C26
+        [ObservableProperty]
+        private string _DataTime_C26 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private int _TimeOut_C26 = 120000;
+        [RelayCommand]
+        private async Task C26TestAsync()
+        {
+            if (!DateTime.TryParseExact(DataTime_C26, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                return;
+            }
+            try
+            {
+                await _gb!.UploadMinuteNoiseLevel(dataTime, NoiseLevelDatas.Select(_ => new NoiseLevelData(_.Name, _.Data)).ToList(), TimeOut_C26);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C27
+        [ObservableProperty]
+        private string _DataTime_C27 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private int _TimeOut_C27 = 120000;
+        [RelayCommand]
+        private async Task C27TestAsync()
+        {
+            if (!DateTime.TryParseExact(DataTime_C27, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                return;
+            }
+            try
+            {
+                await _gb!.UploadHourNoiseLevel(dataTime, HourNoiseLevelDatas.Select(_ => new NoiseLevelData(_.Name, _.Data)).ToList(), TimeOut_C27);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C28
+        [ObservableProperty]
+        private string _DataTime_C28 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private int _TimeOut_C28 = 120000;
+        [RelayCommand]
+        private async Task C28TestAsync()
+        {
+            if (!DateTime.TryParseExact(DataTime_C28, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                return;
+            }
+            try
+            {
+                await _gb!.UploadDayNoiseLevel(dataTime, DayNoiseLevelDatas.Select(_ => new NoiseLevelData_Day(_.Name, _.Data, _.DayData, _.NightData)).ToList(), TimeOut_C28);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C30
+        [ObservableProperty]
+        private bool _C30;
+        partial void OnC30Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnCalibrate += MainViewModel_OnCalibrate;
+            }
+            else
+            {
+                _gb!.OnCalibrate -= MainViewModel_OnCalibrate;
+            }
+        }
+
+        private async Task MainViewModel_OnCalibrate((string PolId, RspInfo RspInfo) objects)
+        {
+            MessageBox.Show($"{objects.PolId} 零点校准量程校准");
+            await Task.CompletedTask;
         }
         #endregion
     }

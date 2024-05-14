@@ -204,7 +204,7 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C14 上传污染物实时数据">
+                        <Expander Header="C14 上传污染物实时数据(C29上传工况实时数据 同)">
                             <StackPanel Background="#FFE5E5E5" Height="440">
                                 <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding RealTimeDatas}">
                                     <DataGrid.Columns>
@@ -480,20 +480,81 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C26">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C26 上传噪声声级分钟数据">
+                            <StackPanel Background="#FFE5E5E5" Height="440">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding NoiseLevelDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Data" Binding="{Binding Data}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="DataTime :" Margin="5"/>
+                                <TextBox Text="{Binding DataTime_C26}" Margin="5,0"/>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C26}" Margin="5,0"/>
+                                <Button Content="发送" Margin="5" Command="{Binding C26TestCommand}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085000001;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp; " Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C27">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C27 上传噪声声级小时数据">
+                            <StackPanel Background="#FFE5E5E5" Height="440">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding HourNoiseLevelDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Data" Binding="{Binding Data}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="DataTime :" Margin="5"/>
+                                <TextBox Text="{Binding DataTime_C27}" Margin="5,0"/>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C27}" Margin="5,0"/>
+                                <Button Content="发送" Margin="5" Command="{Binding C27TestCommand}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801090000001;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C28">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C28 上传噪声声级日历史数据">
+                            <StackPanel Background="#FFE5E5E5" Height="440">
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding DayNoiseLevelDatas}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                                        <DataGridTextColumn Header="Data" Binding="{Binding Data}" Width="*"/>
+                                        <DataGridTextColumn Header="DayData" Binding="{Binding DayData}" Width="*"/>
+                                        <DataGridTextColumn Header="NightData" Binding="{Binding NightData}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="DataTime :" Margin="5"/>
+                                <TextBox Text="{Binding DataTime_C28}" Margin="5,0"/>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C28}" Margin="5,0"/>
+                                <Button Content="发送" Margin="5" Command="{Binding C28TestCommand}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160802000000001;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C29">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
-                        </Expander>
-                        <Expander Header="C30">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C30 零点校准量程校准">
+                            <StackPanel Background="#FFE5E5E5" Height="120">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C30}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3011;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
                         <Expander Header="C31">
                             <Grid Background="#FFE5E5E5" Height="200"/>

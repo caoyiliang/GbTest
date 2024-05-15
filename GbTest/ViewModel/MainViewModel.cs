@@ -69,6 +69,18 @@ namespace GbTest.ViewModel
         private ObservableCollection<Model.NoiseLevelData> _HourNoiseLevelDatas = [];
         [ObservableProperty]
         private ObservableCollection<Model.NoiseLevelData_Day> _DayNoiseLevelDatas = [];
+        [ObservableProperty]
+        private string _CstartTime = "000000";
+        [ObservableProperty]
+        private int _Ctime;
+        [ObservableProperty]
+        private int _Stime;
+        [ObservableProperty]
+        private ObservableCollection<Model.SampleExtractionTime> _SampleExtractionTime = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.SNInfo> _SNInfos = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.LogInfo> _LogInfos = [];
 
         private Connection _connection;
         private IGB? _gb;
@@ -135,13 +147,13 @@ namespace GbTest.ViewModel
 
         private async Task _gb_OnReceivedData(byte[] data)
         {
-            Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Rec:<-- {Encoding.ASCII.GetString(data)}\r\n";
+            Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Rec:<-- {Encoding.UTF8.GetString(data)}\r\n";
             await Task.CompletedTask;
         }
 
         private async Task _gb_OnSentData(byte[] data)
         {
-            Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Sent:<-- {Encoding.ASCII.GetString(data)}";
+            Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Sent:<-- {Encoding.UTF8.GetString(data)}";
             await Task.CompletedTask;
         }
 
@@ -1094,10 +1106,6 @@ namespace GbTest.ViewModel
         #region C35
         [ObservableProperty]
         private bool _C35;
-        [ObservableProperty]
-        private string _CstartTime;
-        [ObservableProperty]
-        private int _Ctime;
         partial void OnC35Changed(bool value)
         {
             if (value)
@@ -1115,6 +1123,142 @@ namespace GbTest.ViewModel
             CstartTime = objects.CstartTime.ToString("HHmmss");
             Ctime = objects.Ctime;
             await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C36
+        [ObservableProperty]
+        private bool _C36;
+        partial void OnC36Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetSamplingPeriod += MainViewModel_OnGetSamplingPeriod;
+            }
+            else
+            {
+                _gb!.OnGetSamplingPeriod -= MainViewModel_OnGetSamplingPeriod;
+            }
+        }
+
+        private async Task<(TimeOnly CstartTime, int Ctime)> MainViewModel_OnGetSamplingPeriod((string PolId, RspInfo RspInfo) objects)
+        {
+            if (!TimeOnly.TryParseExact(CstartTime, "HHmmss", null, System.Globalization.DateTimeStyles.None, out var timeOnly))
+            {
+                MessageBox.Show($"DataTime Error");
+                timeOnly = new TimeOnly(DateTime.Now.Ticks);
+            }
+            return await Task.FromResult((timeOnly, Ctime));
+        }
+        #endregion
+
+        #region C37
+        [ObservableProperty]
+        private bool _C37;
+        partial void OnC37Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetSampleExtractionTime += MainViewModel_OnGetSampleExtractionTime;
+            }
+            else
+            {
+                _gb!.OnGetSampleExtractionTime -= MainViewModel_OnGetSampleExtractionTime;
+            }
+        }
+
+        private async Task<int> MainViewModel_OnGetSampleExtractionTime((string PolId, RspInfo RspInfo) objects)
+        {
+            var rs = SampleExtractionTime.FirstOrDefault(_ => _.PolId == objects.PolId);
+            return await Task.FromResult(rs?.Stime ?? default);
+        }
+        #endregion
+
+        #region C38
+        [ObservableProperty]
+        private bool _C38;
+        partial void OnC38Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetSN += MainViewModel_OnGetSN;
+            }
+            else
+            {
+                _gb!.OnGetSN -= MainViewModel_OnGetSN;
+            }
+        }
+
+        private async Task<string> MainViewModel_OnGetSN((string PolId, RspInfo RspInfo) objects)
+        {
+            var rs = SNInfos.FirstOrDefault(_ => _.PolId == objects.PolId);
+            return await Task.FromResult(rs?.SN ?? "");
+        }
+        #endregion
+
+        #region C39
+        [ObservableProperty]
+        private string _PolId_C39 = "w01018";
+        [ObservableProperty]
+        private string _SN_C39 = "";
+        [ObservableProperty]
+        private int _TimeOut_C39 = 120000;
+        [RelayCommand]
+        private async Task C39TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadSN(DateTime.Now, PolId_C39, SN_C39, TimeOut_C39);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C40
+        [ObservableProperty]
+        private string _DataTime_C40 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private string? _PolId_C40;
+        [ObservableProperty]
+        private string _Info_C40 = "";
+        [ObservableProperty]
+        private int _TimeOut_C40 = 120000;
+        [RelayCommand]
+        private async Task C40TestAsync()
+        {
+            if (PolId_C40 == "") PolId_C40 = null;
+            try
+            {
+                await _gb!.UploadLog(DateTime.Now, PolId_C40, Info_C40, TimeOut_C39);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C41
+        [ObservableProperty]
+        private bool _C41;
+        partial void OnC41Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetLogInfos += MainViewModel_OnGetLogInfos;
+            }
+            else
+            {
+                _gb!.OnGetLogInfos -= MainViewModel_OnGetLogInfos;
+            }
+        }
+
+        private async Task<List<LogInfo>> MainViewModel_OnGetLogInfos((string? PolId, DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
+        {
+            return await Task.FromResult(LogInfos.Select(_ => new LogInfo(_.Info, _.DataTime) { PolId = (_.PolId == "" ? null : _.PolId) }).ToList());
         }
         #endregion
     }

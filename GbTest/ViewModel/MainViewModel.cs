@@ -994,6 +994,129 @@ namespace GbTest.ViewModel
             await Task.CompletedTask;
         }
         #endregion
+
+        #region C31
+        [ObservableProperty]
+        private bool _C31;
+        partial void OnC31Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnRealTimeSampling += MainViewModel_OnRealTimeSampling;
+            }
+            else
+            {
+                _gb!.OnRealTimeSampling -= MainViewModel_OnRealTimeSampling;
+            }
+        }
+
+        private async Task MainViewModel_OnRealTimeSampling((string PolId, RspInfo RspInfo) objects)
+        {
+            MessageBox.Show($"{objects.PolId} 即时采样");
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C32
+        [ObservableProperty]
+        private bool _C32;
+        partial void OnC32Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnStartCleaningOrBlowback += MainViewModel_OnStartCleaningOrBlowback;
+            }
+            else
+            {
+                _gb!.OnStartCleaningOrBlowback -= MainViewModel_OnStartCleaningOrBlowback;
+            }
+        }
+
+        private async Task MainViewModel_OnStartCleaningOrBlowback((string PolId, RspInfo RspInfo) objects)
+        {
+            MessageBox.Show($"{objects.PolId} 启动清洗/反吹");
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C33
+        [ObservableProperty]
+        private bool _C33;
+        partial void OnC33Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnComparisonSampling += MainViewModel_OnComparisonSampling;
+            }
+            else
+            {
+                _gb!.OnComparisonSampling -= MainViewModel_OnComparisonSampling;
+            }
+        }
+
+        private async Task MainViewModel_OnComparisonSampling((string PolId, RspInfo RspInfo) objects)
+        {
+            MessageBox.Show($"{objects.PolId} 比对采样");
+            await Task.CompletedTask;
+        }
+        #endregion
+
+        #region C34
+        [ObservableProperty]
+        private bool _C34;
+        [ObservableProperty]
+        private string _DataTime_C34 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private int _VaseNo = 1;
+        partial void OnC34Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnOutOfStandardRetentionSample += MainViewModel_OnOutOfStandardRetentionSample;
+            }
+            else
+            {
+                _gb!.OnOutOfStandardRetentionSample -= MainViewModel_OnOutOfStandardRetentionSample;
+            }
+        }
+
+        private async Task<(DateTime DataTime, int VaseNo)> MainViewModel_OnOutOfStandardRetentionSample(RspInfo objects)
+        {
+            if (!DateTime.TryParseExact(DataTime_C34, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                dataTime = DateTime.Now;
+            }
+            return await Task.FromResult((dataTime, VaseNo));
+        }
+        #endregion
+
+        #region C35
+        [ObservableProperty]
+        private bool _C35;
+        [ObservableProperty]
+        private string _CstartTime;
+        [ObservableProperty]
+        private int _Ctime;
+        partial void OnC35Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnSetSamplingPeriod += MainViewModel_OnSetSamplingPeriod;
+            }
+            else
+            {
+                _gb!.OnSetSamplingPeriod -= MainViewModel_OnSetSamplingPeriod;
+            }
+        }
+
+        private async Task MainViewModel_OnSetSamplingPeriod((string PolId, TimeOnly CstartTime, int Ctime, RspInfo RspInfo) objects)
+        {
+            CstartTime = objects.CstartTime.ToString("HHmmss");
+            Ctime = objects.Ctime;
+            await Task.CompletedTask;
+        }
+        #endregion
     }
 
     internal class StatusMessage(Connection value) : ValueChangedMessage<Connection>(value) { }

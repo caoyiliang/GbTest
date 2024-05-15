@@ -556,20 +556,68 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C31">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C31 即时采样">
+                            <StackPanel Background="#FFE5E5E5" Height="120">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C31}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3012;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C32">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C32 启动清洗/反吹">
+                            <StackPanel Background="#FFE5E5E5" Height="120">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C32}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3013;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C33">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C33 比对采样">
+                            <StackPanel Background="#FFE5E5E5" Height="120">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C33}"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3014;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C34">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C34 超标留样">
+                            <StackPanel Background="#FFE5E5E5" Height="200">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C34}"/>
+                                <TextBlock Text="留样时间:" Margin="5"/>
+                                <TextBox Text="{Binding DataTime_C34}" Margin="5,0"/>
+                                <TextBlock Text="留样瓶编号:" Margin="5"/>
+                                <TextBox Text="{Binding VaseNo}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3015;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C35">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C35 设置采样时间周期">
+                            <StackPanel Background="#FFE5E5E5" Height="200">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C35}"/>
+                                <TextBlock Text="采样起始时间:" Margin="5"/>
+                                <TextBox Text="{Binding CstartTime}" Margin="5,0"/>
+                                <TextBlock Text="采样时间间隔，单位：小时:" Margin="5"/>
+                                <TextBox Text="{Binding Ctime}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3016;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018;CstartTime=000000;CTime=2&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
                         <Expander Header="C36">
                             <Grid Background="#FFE5E5E5" Height="200"/>

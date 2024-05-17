@@ -29,7 +29,7 @@ namespace Config.Model
         [ObservableProperty]
         private int _Port = 2756;
 
-        private static readonly IDataPair<Connection> _pair = new DataPair<Connection>(nameof(Connection));
+        private static readonly IDataPair<Connection> _pair = new DataPair<Connection>(nameof(Connection), Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PairsDB.dll"));
 
         public async Task InitAsync()
         {

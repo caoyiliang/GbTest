@@ -686,11 +686,9 @@
                             </StackPanel>
                         </Expander>
                         <Expander Header="C40 上传现场机信息（日志）">
-                            <StackPanel Background="#FFE5E5E5" Height="250">
+                            <StackPanel Background="#FFE5E5E5" Height="280">
                                 <TextBlock Text="DataTime :" Margin="5"/>
                                 <TextBox Text="{Binding DataTime_C40}" Margin="5,0"/>
-                                <TextBlock Text="仪表对应污染物编码 :" Margin="5"/>
-                                <TextBox Text="{Binding PolId_C40}" Margin="5,0"/>
                                 <TextBlock Text="仪表对应污染物编码 :" Margin="5"/>
                                 <TextBox Text="{Binding PolId_C40}" Margin="5,0"/>
                                 <TextBlock Text="日志信息 :" Margin="5"/>
@@ -724,20 +722,64 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C42">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C42 上传现场机信息（状态）(C44上传现场机信息（参数） 同)">
+                            <StackPanel Background="#FFE5E5E5" Height="450">
+                                <TextBlock Text="DataTime :" Margin="5"/>
+                                <TextBox Text="{Binding DataTime_C42}" Margin="5,0"/>
+                                <TextBlock Text="仪表对应污染物编码 :" Margin="5"/>
+                                <TextBox Text="{Binding PolId_C42}" Margin="5,0"/>
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding DeviceInfos}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="InfoId" Binding="{Binding InfoId}" Width="*"/>
+                                        <DataGridTextColumn Header="Info " Binding="{Binding Info}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
+                                <TextBox Text="{Binding TimeOut_C42}" Margin="5,0"/>
+                                <Button Content="发送" Margin="5" Command="{Binding C42TestCommand}"/>
+                                <TextBlock Text="服务器回复测试命令样例，实际QN会改变:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=91;CN=9014;PW=123456;MN=010000A8900016F000169DC0;Flag=4;CP=&amp;&amp;&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C43">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C43 提取现场机信息（状态）(C45提取现场机信息（参数） 同)">
+                            <StackPanel Background="#FFE5E5E5" Height="350">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C43}"/>
+                                <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding DeviceParameterInfos}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="DataTime" Binding="{Binding DataTime}" Width="*"/>
+                                        <DataGridTextColumn Header="PolId" Binding="{Binding PolId}" Width="*"/>
+                                        <DataGridTextColumn Header="InfoId" Binding="{Binding InfoId}" Width="*"/>
+                                        <DataGridTextColumn Header="Info " Binding="{Binding Info}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3020;PW=123456;MN=010000A8900016F000169DC0; Flag=5;CP=&amp;&amp;PolId=w01018;InfoId=i12001&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
-                        <Expander Header="C44">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
-                        </Expander>
-                        <Expander Header="C45">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
-                        </Expander>
-                        <Expander Header="C46">
-                            <Grid Background="#FFE5E5E5" Height="200"/>
+                        <Expander Header="C46 设置现场机参数">
+                            <StackPanel Background="#FFE5E5E5" Height="260">
+                                <CheckBox Content="启用" Margin="5" IsChecked="{Binding C46}"/>
+                                <TextBlock Text="仪表对应污染物编码 :" Margin="5"/>
+                                <TextBox Text="{Binding PolId_C46}" Margin="5,0"/>
+                                <TextBlock Text="现场机信息编码 :" Margin="5"/>
+                                <TextBox Text="{Binding InfoId_C46}" Margin="5,0"/>
+                                <TextBlock Text="Info :" Margin="5"/>
+                                <TextBox Text="{Binding Info_C46}" Margin="5,0"/>
+                                <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
+                                <TextBlock Text="QN=20160801085857223;ST=32;CN=3021;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;PolId=w01018;InfoId=i13004;i13004-Info=168.0&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
+                                    <i:Interaction.Behaviors>
+                                        <b:CopyBehavior/>
+                                    </i:Interaction.Behaviors>
+                                </TextBlock>
+                            </StackPanel>
                         </Expander>
                     </StackPanel>
                 </ScrollViewer>

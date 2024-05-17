@@ -81,6 +81,10 @@ namespace GbTest.ViewModel
         private ObservableCollection<Model.SNInfo> _SNInfos = [];
         [ObservableProperty]
         private ObservableCollection<Model.LogInfo> _LogInfos = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.DeviceInfo> _DeviceInfos = [];
+        [ObservableProperty]
+        private ObservableCollection<Model.DeviceParameterInfo> _DeviceParameterInfos = [];
 
         private Connection _connection;
         private IGB? _gb;
@@ -1232,7 +1236,7 @@ namespace GbTest.ViewModel
             if (PolId_C40 == "") PolId_C40 = null;
             try
             {
-                await _gb!.UploadLog(DateTime.Now, PolId_C40, Info_C40, TimeOut_C39);
+                await _gb!.UploadLog(DateTime.Now, PolId_C40, Info_C40, TimeOut_C40);
             }
             catch (TimeoutException)
             {
@@ -1259,6 +1263,84 @@ namespace GbTest.ViewModel
         private async Task<List<LogInfo>> MainViewModel_OnGetLogInfos((string? PolId, DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
         {
             return await Task.FromResult(LogInfos.Select(_ => new LogInfo(_.Info, _.DataTime) { PolId = (_.PolId == "" ? null : _.PolId) }).ToList());
+        }
+        #endregion
+
+        #region C42、44
+        [ObservableProperty]
+        private string _DataTime_C42 = DateTime.Now.ToString("yyyyMMddHHmmss");
+        [ObservableProperty]
+        private string _PolId_C42 = "";
+        [ObservableProperty]
+        private int _TimeOut_C42 = 120000;
+        [RelayCommand]
+        private async Task C42TestAsync()
+        {
+            try
+            {
+                await _gb!.UploadInfo(DateTime.Now, PolId_C42, DeviceInfos.Select(_ => new DeviceInfo(_.InfoId, _.Info)).ToList(), TimeOut_C42);
+            }
+            catch (TimeoutException)
+            {
+                MessageBox.Show("请求超时");
+            }
+        }
+        #endregion
+
+        #region C43、45
+        [ObservableProperty]
+        private bool _C43;
+        partial void OnC43Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnGetInfo += MainViewModel_OnGetInfo;
+            }
+            else
+            {
+                _gb!.OnGetInfo -= MainViewModel_OnGetInfo;
+            }
+        }
+
+        private async Task<(DateTime DataTime, List<DeviceInfo> DeviceInfos)> MainViewModel_OnGetInfo((string PolId, string InfoId, RspInfo RspInfo) objects)
+        {
+            var rs = DeviceParameterInfos.FirstOrDefault(_ => _.PolId == objects.PolId && _.InfoId == objects.InfoId);
+            if (!DateTime.TryParseExact(rs?.DataTime, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                dataTime = DateTime.Now;
+            }
+            return await Task.FromResult((dataTime, rs == null ? [] : new List<DeviceInfo>() { new(rs.InfoId, rs.Info) }));
+        }
+        #endregion
+
+        #region C46
+        [ObservableProperty]
+        private bool _C46;
+        [ObservableProperty]
+        private string _PolId_C46 = "";
+        [ObservableProperty]
+        private string _InfoId_C46 = "";
+        [ObservableProperty]
+        private string _Info_C46 = "";
+        partial void OnC46Changed(bool value)
+        {
+            if (value)
+            {
+                _gb!.OnSetInfo += MainViewModel_OnSetInfo;
+            }
+            else
+            {
+                _gb!.OnSetInfo -= MainViewModel_OnSetInfo;
+            }
+        }
+
+        private async Task MainViewModel_OnSetInfo((string PolId, string InfoId, string Info, RspInfo RspInfo) objects)
+        {
+            PolId_C46 = objects.PolId;
+            InfoId_C46 = objects.InfoId;
+            Info_C46 = objects.Info;
+            await Task.CompletedTask;
         }
         #endregion
     }

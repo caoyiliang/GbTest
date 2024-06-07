@@ -17,7 +17,7 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="CSoft.LoggerNLog" Version="8.0.1" />
-    <PackageReference Include="CSoft.Protocol.HJ212" Version="1.0.6" />
+    <PackageReference Include="CSoft.Protocol.HJ212" Version="1.0.7" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.122" />
   </ItemGroup>
 

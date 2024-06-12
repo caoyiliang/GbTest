@@ -388,7 +388,7 @@
                                 </DataGrid>
                                 <TextBlock Text="波动百分比(%) :" Margin="5"/>
                                 <TextBox Text="{Binding Fluctuation_C17}" Margin="5,0"/>
-                                <TextBlock Text="返回几分钟:" Margin="5"/>
+                                <TextBlock Text="返回几小时:" Margin="5"/>
                                 <TextBox Text="{Binding Count_C21}" Margin="5,0"/>
                                 <CheckBox Content="请求返回" Margin="5" IsChecked="{Binding ReturnValue_C21}"/>
                                 <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
@@ -401,7 +401,7 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C22 取污染物日历史数据">
+                        <Expander Header="C22 取污染物日历史数据(遵循C47-C50的规则)">
                             <StackPanel Background="#FFE5E5E5" Height="480">
                                 <CheckBox Content="启用" Margin="5" IsChecked="{Binding C22}"/>
                                 <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding DayDatas}">
@@ -416,7 +416,7 @@
                                 </DataGrid>
                                 <TextBlock Text="波动百分比(%) :" Margin="5"/>
                                 <TextBox Text="{Binding Fluctuation_C18}" Margin="5,0"/>
-                                <TextBlock Text="返回几分钟:" Margin="5"/>
+                                <TextBlock Text="返回几天:" Margin="5"/>
                                 <TextBox Text="{Binding Count_C22}" Margin="5,0"/>
                                 <CheckBox Content="请求返回" Margin="5" IsChecked="{Binding ReturnValue_C22}"/>
                                 <TextBlock Text="响应超时（毫秒） :" Margin="5"/>
@@ -430,7 +430,7 @@
                             </StackPanel>
                         </Expander>
                         <Expander Header="C23 取设备运行时间日历史数据">
-                            <StackPanel Background="#FFE5E5E5" Height="380">
+                            <StackPanel Background="#FFE5E5E5" Height="400">
                                 <CheckBox Content="启用" Margin="5" IsChecked="{Binding C23}"/>
                                 <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding RunningTimeDatas}">
                                     <DataGrid.Columns>
@@ -438,6 +438,8 @@
                                         <DataGridTextColumn Header="RunningTime" Binding="{Binding RT}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
+                                <TextBlock Text="返回几天:" Margin="5"/>
+                                <TextBox Text="{Binding Count_C23}" Margin="5,0"/>
                                 <TextBlock Text="测试命令:(点击复制)" Margin="5"/>
                                 <TextBlock Text="QN=20160801085857223;ST=32;CN=2041;PW=123456;MN=010000A8900016F000169DC0;Flag=5;CP=&amp;&amp;BeginTime=20160801000000,EndTime=20160801000000&amp;&amp;" Margin="10,5,10,10" TextDecorations="Underline" TextWrapping="Wrap">
                                     <i:Interaction.Behaviors>

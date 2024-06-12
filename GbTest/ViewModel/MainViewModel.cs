@@ -842,6 +842,8 @@ namespace GbTest.ViewModel
         #region C23
         [ObservableProperty]
         private bool _C23;
+        [ObservableProperty]
+        private int _Count_C23 = 2;
         partial void OnC23Changed(bool value)
         {
             if (value)
@@ -854,9 +856,14 @@ namespace GbTest.ViewModel
             }
         }
 
-        private async Task<(DateTime DataTime, List<RunningTimeData> Data)> MainViewModel_OnGetRunningTimeData((DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
+        private async Task<List<RunningTimeHistory>> MainViewModel_OnGetRunningTimeData((DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
         {
-            return await Task.FromResult((DateTime.Now, RunningTimeDatas.Select(_ => new RunningTimeData(_.Name, _.RT)).ToList()));
+            var historyDatas = new List<RunningTimeHistory>();
+            for (int i = 0; i < Count_C23; i++)
+            {
+                historyDatas.Add(new(DateTime.Now.AddDays(i), RunningTimeDatas.Select(_ => new RunningTimeData(_.Name, _.RT)).ToList()));
+            }
+            return await Task.FromResult(historyDatas);
         }
         #endregion
 

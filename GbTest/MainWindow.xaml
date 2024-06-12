@@ -429,7 +429,7 @@
                                 </TextBlock>
                             </StackPanel>
                         </Expander>
-                        <Expander Header="C23 取设备运行时间日历史数据">
+                        <Expander Header="C23 取设备运行时间日历史数据(遵循C47-C50的规则)">
                             <StackPanel Background="#FFE5E5E5" Height="400">
                                 <CheckBox Content="启用" Margin="5" IsChecked="{Binding C23}"/>
                                 <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding RunningTimeDatas}">

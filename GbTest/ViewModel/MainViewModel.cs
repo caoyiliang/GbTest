@@ -1269,7 +1269,7 @@ namespace GbTest.ViewModel
 
         private async Task<List<LogInfo>> MainViewModel_OnGetLogInfos((string? PolId, DateTime BeginTime, DateTime EndTime, RspInfo RspInfo) objects)
         {
-            return await Task.FromResult(LogInfos.Select(_ => new LogInfo(_.Info, _.DataTime) { PolId = (_.PolId == "" ? null : _.PolId) }).ToList());
+            return await Task.FromResult(LogInfos.Where(_ => _.PolId == objects.PolId && _.DataTime < objects.EndTime && _.DataTime > objects.BeginTime).Select(_ => new LogInfo(_.Info, _.DataTime) { PolId = (_.PolId == "" ? null : _.PolId) }).ToList());
         }
         #endregion
 

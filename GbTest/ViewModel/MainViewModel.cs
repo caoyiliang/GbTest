@@ -133,10 +133,10 @@ namespace GbTest.ViewModel
                         break;
                     default: throw new NotSupportedException();
                 }
-                _gb.OnSentData += _gb_OnSentData;
-                _gb.OnReceivedData += _gb_OnReceivedData;
-                _gb.OnConnect += _gb_OnConnect;
-                _gb.OnDisconnect += _gb_OnDisconnect;
+                _gb.OnSentData += Gb_OnSentData;
+                _gb.OnReceivedData += Gb_OnReceivedData;
+                _gb.OnConnect += Gb_OnConnect;
+                _gb.OnDisconnect += Gb_OnDisconnect;
                 try
                 {
                     await _gb.OpenAsync();
@@ -149,19 +149,19 @@ namespace GbTest.ViewModel
             }
         }
 
-        private async Task _gb_OnReceivedData(byte[] data)
+        private async Task Gb_OnReceivedData(byte[] data)
         {
             Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Rec:<-- {Encoding.UTF8.GetString(data)}\r\n";
             await Task.CompletedTask;
         }
 
-        private async Task _gb_OnSentData(byte[] data)
+        private async Task Gb_OnSentData(byte[] data)
         {
             Content += $"{DateTime.Now:yyyy-MM-dd HH:mm:ss:fff} GB Sent:<-- {Encoding.UTF8.GetString(data)}";
             await Task.CompletedTask;
         }
 
-        private async Task _gb_OnDisconnect()
+        private async Task Gb_OnDisconnect()
         {
             await App.Current.Dispatcher.InvokeAsync(() =>
             {
@@ -170,7 +170,7 @@ namespace GbTest.ViewModel
             });
         }
 
-        private async Task _gb_OnConnect()
+        private async Task Gb_OnConnect()
         {
             await App.Current.Dispatcher.InvokeAsync(() =>
             {
@@ -227,15 +227,15 @@ namespace GbTest.ViewModel
         {
             if (value)
             {
-                _gb!.OnSetOverTimeAndReCount += _gb_OnSetOverTimeAndReCount;
+                _gb!.OnSetOverTimeAndReCount += Gb_OnSetOverTimeAndReCount;
             }
             else
             {
-                _gb!.OnSetOverTimeAndReCount -= _gb_OnSetOverTimeAndReCount;
+                _gb!.OnSetOverTimeAndReCount -= Gb_OnSetOverTimeAndReCount;
             }
         }
 
-        private async Task _gb_OnSetOverTimeAndReCount((int OverTime, int ReCount, HJ212.Model.RspInfo RspInfo) objects)
+        private async Task Gb_OnSetOverTimeAndReCount((int OverTime, int ReCount, HJ212.Model.RspInfo RspInfo) objects)
         {
             OverTime = objects.OverTime;
             ReCount = objects.ReCount;

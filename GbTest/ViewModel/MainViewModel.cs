@@ -140,6 +140,7 @@ namespace GbTest.ViewModel
                 try
                 {
                     await _gb.OpenAsync();
+                    Init();
                     IsOpen = true;
                 }
                 catch
@@ -147,6 +148,42 @@ namespace GbTest.ViewModel
                     //ExceptionStr = "连接失败，检查链路";
                 }
             }
+        }
+
+        private void Init()
+        {
+            OnC1Changed(C1);
+            OnC2Changed(C2);
+            OnC3Changed(C3);
+            OnC5Changed(C5);
+            OnC6Changed(C6);
+            OnC7Changed(C7);
+            OnC8Changed(C8);
+            OnC9Changed(C9);
+            OnC10Changed(C10);
+            OnC11Changed(C11);
+            OnC12Changed(C12);
+            OnC13Changed(C13);
+            OnC14Changed(C14);
+            OnC16Changed(C16);
+            OnC17Changed(C17);
+            OnC18Changed(C18);
+            OnC20Changed(C20);
+            OnC21Changed(C21);
+            OnC22Changed(C22);
+            OnC23Changed(C23);
+            OnC30Changed(C30);
+            OnC31Changed(C31);
+            OnC32Changed(C32);
+            OnC33Changed(C33);
+            OnC34Changed(C34);
+            OnC35Changed(C35);
+            OnC36Changed(C36);
+            OnC37Changed(C37);
+            OnC38Changed(C38);
+            OnC41Changed(C41);
+            OnC43Changed(C43);
+            OnC46Changed(C46);
         }
 
         private async Task Gb_OnReceivedData(byte[] data)

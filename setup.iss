@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=模拟国标现场机
-AppVerName=模拟国标现场机 1.6
+AppVerName=模拟国标现场机 1.7
 AppPublisher=CSoft
 AppPublisherURL=宇宙联盟
 AppSupportURL=宇宙联盟

@@ -335,7 +335,7 @@ namespace GbTest.ViewModel
         {
             try
             {
-                await _gb!.AskSetSystemTime("a1001", TimeOut_C4);
+                await _gb!.AskSetSystemTime(PolId_C4, TimeOut_C4);
             }
             catch (TimeoutException)
             {

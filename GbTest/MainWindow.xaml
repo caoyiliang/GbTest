@@ -10,7 +10,7 @@
         xmlns:b="clr-namespace:GbTest.Behavior"
         d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
-        Title="模拟国标现场机" Height="450" Width="800">
+        Title="国标协议测试-现场端" Height="450" Width="800">
     <Window.Resources>
         <convert:StatusConverter x:Key="StatusConverter"/>
         <convert:InverseConverter x:Key="InverseConverter"/>
@@ -659,7 +659,7 @@
                                 <DataGrid Height="200" Margin="5" AutoGenerateColumns="False" CanUserAddRows="True" CanUserDeleteRows="True" ItemsSource="{Binding SNInfos}">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="污染物名称" Binding="{Binding PolId}" Width="*"/>
-                                        <DataGridTextColumn Header="设备唯一标识 " Binding="{Binding SN}" Width="*"/>
+                                        <DataGridTextColumn Header="设备唯一标识" Binding="{Binding SN}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                                 <TextBlock Text="测试命令:(点击复制)" Margin="5"/>

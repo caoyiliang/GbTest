@@ -1278,9 +1278,14 @@ namespace GbTest.ViewModel
         private async Task C40TestAsync()
         {
             if (PolId_C40 == "") PolId_C40 = null;
+            if(!DateTime.TryParseExact(DataTime_C40, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                return;
+            }
             try
             {
-                await _gb!.UploadLog(DateTime.Now, PolId_C40, Info_C40, TimeOut_C40);
+                await _gb!.UploadLog(dataTime, PolId_C40, Info_C40, TimeOut_C40);
             }
             catch (TimeoutException)
             {
@@ -1320,9 +1325,14 @@ namespace GbTest.ViewModel
         [RelayCommand]
         private async Task C42TestAsync()
         {
+            if (!DateTime.TryParseExact(DataTime_C42, "yyyyMMddHHmmss", null, System.Globalization.DateTimeStyles.None, out var dataTime))
+            {
+                MessageBox.Show($"DataTime Error");
+                return;
+            }
             try
             {
-                await _gb!.UploadInfo(DateTime.Now, PolId_C42, DeviceInfos.Select(_ => new DeviceInfo(_.InfoId, _.Info)).ToList(), TimeOut_C42);
+                await _gb!.UploadInfo(dataTime, PolId_C42, DeviceInfos.Select(_ => new DeviceInfo(_.InfoId, _.Info)).ToList(), TimeOut_C42);
             }
             catch (TimeoutException)
             {
